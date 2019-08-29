@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Just Java</string>
+    <string name="toppings_header">Toppings</string>
+    <string name="cream_checkbox">Whipped Cream</string>
+    <string name="chocolate_checkbox">Chocolate</string>
+    <string name="user_name">Sigbert Schnösel</string>
+    <string name="quantity_header">Quantity</string>
+    <string name="order_header">Order Summary</string>
+    <string name="decrement_btn_text">-</string>
+</resources>
