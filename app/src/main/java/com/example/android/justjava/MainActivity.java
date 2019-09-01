@@ -8,6 +8,8 @@
 
 package com.example.android.justjava;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
@@ -43,8 +45,7 @@ public class MainActivity extends AppCompatActivity {
         boolean chocolateChecked = chocolateCheckbox.isChecked();
 
         int price = calculatePrice(creamChecked, chocolateChecked);
-        String summary = createOrderSummary(price, creamChecked, chocolateChecked);
-        displayMessage(summary);
+        createOrderSummary(price, creamChecked, chocolateChecked);
     }
 
     public int calculatePrice(boolean hasCream, boolean hasChocolate){
@@ -79,16 +80,17 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        public String createOrderSummary(int totalPrice, boolean creamChecked, boolean chocolateChecked){
+        public void createOrderSummary(int totalPrice, boolean creamChecked, boolean chocolateChecked){
         EditText name_field = (EditText) findViewById(R.id.user_name_field);
         String name = name_field.getText().toString();
+            String subject = R.string.order_subject + name;
             String summary = "Name: " + name +
                     "\nAdd whipped cream? " + creamChecked +
                     "\nAdd chocolate? " + chocolateChecked +
                     "\nQuantity: " + quantity +
                     "\nTotal: " + totalPrice +
                     "\nThank you!";
-            return summary;
+            composeEmail(subject, summary);
         }
 
 
@@ -101,11 +103,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * This method displays the given text on the screen.
+     * This method composes an email upon ordering
      */
-    private void displayMessage(String message) {
-        TextView orderSummaryTextView = (TextView) findViewById(R.id.order_summary_text_view);
-        orderSummaryTextView.setText(message);
+    public void composeEmail(String subject, String orderSummary) {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("*/*");
+        intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+        intent.putExtra(Intent.EXTRA_TEXT, orderSummary);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
     }
+
 
 }
