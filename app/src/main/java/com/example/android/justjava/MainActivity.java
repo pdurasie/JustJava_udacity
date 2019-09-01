@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         public void createOrderSummary(int totalPrice, boolean creamChecked, boolean chocolateChecked){
         EditText name_field = (EditText) findViewById(R.id.user_name_field);
         String name = name_field.getText().toString();
-            String subject = R.string.order_subject + name;
+            String subject = getString(R.string.order_subject) + name;
             String summary = "Name: " + name +
                     "\nAdd whipped cream? " + creamChecked +
                     "\nAdd chocolate? " + chocolateChecked +
